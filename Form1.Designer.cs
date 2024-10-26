@@ -48,7 +48,7 @@
             // 
             txtLog.Location = new Point(20, 61);
             txtLog.Name = "txtLog";
-            txtLog.Size = new Size(371, 296);
+            txtLog.Size = new Size(685, 296);
             txtLog.TabIndex = 3;
             txtLog.Text = "";
             // 
@@ -78,7 +78,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(403, 381);
+            ClientSize = new Size(769, 381);
             Controls.Add(radioButton_serial);
             Controls.Add(radioButton_eth);
             Controls.Add(txtLog);
