@@ -12,6 +12,9 @@ using Hugin.POS.CompactPrinter.FP300;
 using System.Reflection;
 using Hugin.Common;
 using System.Xml.Linq;
+using tigert300;
+using System.Diagnostics;
+using System.Numerics;
 
 
 namespace tigert300
@@ -20,9 +23,10 @@ namespace tigert300
     {
         private static bool isMatchedBefore = false;
         private static ICompactPrinter printer = null;
-       // private static string fiscalId = "FT40049085";
         public static string txtLog = "";
         public static string fiscalId;
+
+
         #region Signingincashier
         public void Signingincashier(int id, string password)
         {
@@ -198,11 +202,13 @@ namespace tigert300
 
         #endregion
 
+        #region FiscalId
         public string FiscalId
         {
             get { return fiscalId; }
             set { fiscalId = value; }
         }
+        #endregion
 
         #region SetFiscalId
         public static void SetFiscalId(string strId)
@@ -412,14 +418,15 @@ namespace tigert300
                     this.Connection.Open();
 
                     errPrefix = FormMessage.MATCHING_ERROR + ": ";
-
+                 
                     // ÖKC ile eşleme adımı
                     MatchExDevice();
-
+                    Signingincashier(1, "1234"); // hangi aşamalarda hangi kasiyer ile login olunmalı sor ?
+                    PrintDocument();
                     return_msg = txtLog;
 
                     this.Log(FormMessage.CONNECTED);
-                  //  Signingincashier(1, "99"); // hangi aşamalarda hangi kasiyer ile login olunmalı sor ?
+            
                 }
                 else
                 {
@@ -442,6 +449,22 @@ namespace tigert300
             return txtLog;
         }
         #endregion
+
+        public void PrintDocument()
+        {
+
+            try
+            {
+
+                CPResponse response_header = new CPResponse(Printer.PrintDocumentHeader());
+                CPResponse response_item = new CPResponse(Printer.PrintItem(1, 1,1,"AA",null, -1, -1));
+                CPResponse response_payment = new CPResponse(Printer.PrintPayment(0, 0, 99));
+                CPResponse response_close = new CPResponse(Printer.CloseReceipt(false));
+            }
+            catch
+            {
+            }
+        }
     }
 
     #region ContentType
@@ -725,5 +748,5 @@ namespace tigert300
     }
     #endregion
 
-
+ 
 }

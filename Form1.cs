@@ -28,14 +28,14 @@ namespace tigert300
             if (radioButton_eth.Checked)
             {
 
-                txtLog.Text = Fpu.Connect(false, "", 115200, "192.168.1.58", 4444);
+                txtLog.Text = Fpu.Connect(false, "com1:", 115200, "192.168.1.58", 4444);
             }
             else
             {
-                txtLog.Text = Fpu.Connect(true, "", 115200, "192.168.1.58", 4444);
+                txtLog.Text = Fpu.Connect(true, "com1:", 115200, "192.168.1.58", 4444);
             }
 
-
+           
         }
         #endregion
 
@@ -47,10 +47,13 @@ namespace tigert300
         }
         #endregion
 
+        #region Form1_Load
         private void Form1_Load(object sender, EventArgs e)
         {
             Fpu.FiscalId = "FT40049085";
         }
+        #endregion
+
     }
 
 
